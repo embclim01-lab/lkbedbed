@@ -169,7 +169,22 @@ Nabghik fi galbi ya lhbila dyali
 
     document.body.appendChild(final);
 });
+    // Roses
+function createRose() {
+    const rose = document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerHTML = "🌷	";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.fontSize = Math.random() * 30 + 30 + "px";
+    document.body.appendChild(rose);
+
+    setTimeout(() => {
+        rose.remove();
+    }, 6000);
+}
+    setInterval(createRose, 400);
 </script>
 
 </body>
 </html>
+
