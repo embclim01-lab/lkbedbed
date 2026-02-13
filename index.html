@@ -53,6 +53,47 @@ button {
     left: 60%;
 }
 
+/* OURSON */
+.teddy {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 10vw;
+    animation: floatTeddy 3s ease-in-out infinite;
+}
+
+/* BISOU */
+.kiss {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    font-size: 8vw;
+    animation: kissMove 2s ease forwards;
+}
+
+/* ANIMATION OURSON ET BISOU */
+@keyframes floatTeddy {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5vw); }
+}
+
+@keyframes kissMove {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-15vw); }
+}
+
+/* ROSES */
+.rose {
+    position: absolute;
+    font-size: 6vw;
+    animation: fall 6s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh); }
+    100% { transform: translateY(110vh); }
+}
+
 /* MESSAGE FINAL */
 .finalMessage {
     position: absolute;
@@ -79,6 +120,9 @@ button {
     button { font-size: 18px; padding: 10px 25px; }
     .finalMessage { font-size: 40px; }
     .letter { font-size: 18px; }
+    .teddy { font-size: 60px; }
+    .kiss { font-size: 30px; }
+    .rose { font-size: 24px; }
 }
 </style>
 </head>
@@ -94,11 +138,14 @@ button {
 <button id="yesBtn">Yes 💖</button>
 <button id="noBtn">No 😢</button>
 
+<div class="teddy">🧸</div>
+
 <script>
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const music = document.getElementById("bgMusic");
 const title = document.querySelector(".title");
+const teddy = document.querySelector(".teddy");
 
 let yesSize = 1;
 
@@ -108,7 +155,7 @@ document.body.addEventListener("click", function() {
     music.play();
 }, { once: true });
 
-/* Fonction mouvement bouton NO */
+/* MOUVEMENT BOUTON NO */
 function moveNoButton() {
     const padding = 20;
     let moves = 0;
@@ -137,23 +184,28 @@ function moveNoButton() {
 
 /* PC */
 noBtn.addEventListener("mouseenter", moveNoButton);
-
 /* MOBILE */
 noBtn.addEventListener("touchstart", moveNoButton);
 
 /* CLICK YES */
 yesBtn.addEventListener("click", function() {
-
     yesBtn.remove();
     noBtn.remove();
-    title.remove(); // Supprime le titre aussi
+    title.remove();
 
+    // BISOU
+    const kiss = document.createElement("div");
+    kiss.classList.add("kiss");
+    kiss.innerHTML = "💋";
+    document.body.appendChild(kiss);
+
+    // MESSAGE FINAL
     const final = document.createElement("div");
     final.className = "finalMessage";
     final.innerHTML = `
         Nabghik fi galbi ❤️<br>Nouhaile 🥰
         <div class="letter">
-Sometimes I wonder how lucky I was to have you in my life.
+           Sometimes I wonder how lucky I was to have you in my life.
 
 Since you came into my world, everything has slowly changed… as if my heart has found its place.
 
@@ -163,28 +215,29 @@ You are more than just a special person to me you are the one who makes my heart
 
 With you, I don't just want moments , I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
 
-Nabghik fi galbi ya lhbila dyali     
-</div>
+Nabghik fi galbi ya lhbila dyali
+        </div>
     `;
-
     document.body.appendChild(final);
 });
-    // Roses
+
+/* ROSES ALÉATOIRES */
 function createRose() {
+    const flowers = ["🌷"];
     const rose = document.createElement("div");
     rose.classList.add("rose");
-    rose.innerHTML = "🌷	";
+    rose.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
     rose.style.left = Math.random() * 100 + "vw";
-    rose.style.fontSize = Math.random() * 30 + 30 + "px";
     document.body.appendChild(rose);
 
     setTimeout(() => {
         rose.remove();
     }, 6000);
 }
-    setInterval(createRose, 400);
+
+setInterval(createRose, 400);
+
 </script>
 
 </body>
 </html>
-
