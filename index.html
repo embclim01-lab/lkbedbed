@@ -98,6 +98,7 @@ button {
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const music = document.getElementById("bgMusic");
+const title = document.querySelector(".title");
 
 let yesSize = 1;
 
@@ -145,6 +146,7 @@ yesBtn.addEventListener("click", function() {
 
     yesBtn.remove();
     noBtn.remove();
+    title.remove(); // Supprime le titre aussi
 
     const final = document.createElement("div");
     final.className = "finalMessage";
@@ -157,11 +159,11 @@ Since you came into my world, everything has slowly changed… as if my heart ha
 
 When I think of you, I smile for no reason. When I talk to you, I forget everything else. And when I imagine you far away, I understand how much you truly mean to me.
 
-You are more than just a special person to me… you are the one who makes my heart beat a little faster.
+You are more than just a special person to me you are the one who makes my heart beat a little faster.
 
-With you, I don't just want moments… I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
+With you, I don't just want moments , I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
 
-Nabghik fi galbi ya lhbila dyali
+Nabghik fi galbi ya lhbila dyali     
 </div>
     `;
 
