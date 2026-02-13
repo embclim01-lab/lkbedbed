@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nouhaila ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    z-index: 3;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.2s;
+}
+
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+    position: relative;
+    z-index: 2;
+    margin-top: 150px; /* descendre sous le titre */
+}
+
+#noBtn {
+    background-color: white;
+    color: #ff4d6d;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.rose {
+    position: absolute;
+    animation: fall 6s linear infinite;
+    font-size: 24px;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh); }
+    100% { transform: translateY(110vh); }
+}
+
+.teddy {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 60px;
+    animation: floatTeddy 3s ease-in-out infinite;
+}
+
+@keyframes floatTeddy {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.kiss {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    font-size: 30px;
+    animation: kissMove 2s ease forwards;
+}
+
+@keyframes kissMove {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-150px); }
+}
+
+.letter {
+    background: white;
+    width: 80%;
+    max-width: 500px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin: auto;
+    margin-top: 20px;
+    color: #ff4d6d;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic">
+    <source src="amour.mp3" type="audio/mpeg">
+</audio>
+
+<div class="title">
+    <h1 class="title">Nouhaila 💖<br>Will you be my Valentine forever?</h1>
+  
+</div>
+<div class="container">
+
+  <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 😢</button>
+</div>
+<div class="teddy" id="teddy">🧸</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const music = document.getElementById("bgMusic");
+
+let size = 1;
+
+// Musique commence à 16 secondes après le premier clic
+document.body.addEventListener("click", function() {
+    music.currentTime = 16;
+    music.play();
+}, { once: true });
+
+// NO bouge 5 fois doucement à chaque survol
+noBtn.addEventListener("mouseenter", function() {
+    const padding = 50;
+    let moves = 0;
+
+    function moveOnce() {
+        const x = Math.random() * (window.innerWidth - padding * 2) + padding;
+        const y = Math.random() * (window.innerHeight - padding * 2) + padding;
+
+        noBtn.style.transition = "all 0.15s ease";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        size += 0.1;
+        yesBtn.style.transform = "scale(" + size + ")";
+
+        moves++;
+        if (moves < 5) {
+            setTimeout(moveOnce, 150);
+        }
+    }
+
+    moveOnce();
+});
+
+// YES clique
+yesBtn.addEventListener("click", function() {
+    const kiss = document.createElement("div");
+    kiss.classList.add("kiss");
+    kiss.innerHTML = "💋";
+    document.body.appendChild(kiss);
+
+    setTimeout(() => {
+        // Supprime les boutons YES et NO
+        yesBtn.remove();
+        noBtn.remove();
+
+        // Crée le message final
+        const finalMessage = document.createElement("div");
+        finalMessage.style.position = "absolute";
+        finalMessage.style.top = "50%";
+        finalMessage.style.left = "50%";
+        finalMessage.style.transform = "translate(-50%, -50%)";
+        finalMessage.style.textAlign = "center";
+        finalMessage.innerHTML = `
+            <h1 style="color:white; font-size:3em;">
+                Nabghik fi galbi ❤️<br> lkbedbed 🥰
+            </h1>
+            <div class="letter">
+Sometimes I wonder how lucky I was to have you in my life.
+
+Since you came into my world, everything has slowly changed… as if my heart has found its place.
+
+When I think of you, I smile for no reason. When I talk to you, I forget everything else. And when I imagine you far away, I understand how much you truly mean to me.
+
+You are more than just a special person to me , you are the one who makes my heart beat a little faster.
+
+With you, I don't just want moments ,  I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
+
+kanmot 3lik            </div>
+        `;
+        document.body.appendChild(finalMessage);
+    }, 2000);
+});
+
+
+
+// Roses
+function createRose() {
+    const rose = document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerHTML = "🌷	";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.fontSize = Math.random() * 20 + 20 + "px";
+    document.body.appendChild(rose);
+
+    setTimeout(() => {
+        rose.remove();
+    }, 6000);
+}
+
+setInterval(createRose, 400);
+</script>
+
+</body>
+</html>
