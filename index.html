@@ -8,10 +8,9 @@
 <style>
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
     font-family: Arial, sans-serif;
-    overflow: hidden;
     text-align: center;
     position: relative;
 }
@@ -94,18 +93,22 @@ button {
     100% { transform: translateY(110vh); }
 }
 
-/* MESSAGE FINAL */
+/* FINAL MESSAGE SCROLLABLE */
 .finalMessage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; /* pas absolute pour permettre scroll */
+    top: auto;
+    left: auto;
+    transform: none;
+    max-width: 90%;
+    margin: 20px auto;
     color: white;
     font-size: 7vw;
     text-align: center;
 }
 
 .letter {
+    max-height: 50vh;
+    overflow-y: auto; /* scroll vertical si texte trop grand */
     background: white;
     color: #ff4d6d;
     padding: 20px;
@@ -119,7 +122,7 @@ button {
     .title { font-size: 30px; }
     button { font-size: 18px; padding: 10px 25px; }
     .finalMessage { font-size: 40px; }
-    .letter { font-size: 18px; }
+    .letter { font-size: 18px; max-height: 300px; }
     .teddy { font-size: 60px; }
     .kiss { font-size: 30px; }
     .rose { font-size: 24px; }
@@ -145,8 +148,8 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const music = document.getElementById("bgMusic");
 const title = document.querySelector(".title");
-const teddy = document.querySelector(".teddy");
 
+/* YES grandit */
 let yesSize = 1;
 
 /* MUSIQUE commence à 16 secondes au premier clic */
@@ -205,7 +208,7 @@ yesBtn.addEventListener("click", function() {
     final.innerHTML = `
         Nabghik fi galbi ❤️<br>Nouhaila 🥰
         <div class="letter">
-           Sometimes I wonder how lucky I was to have you in my life.
+          Sometimes I wonder how lucky I was to have you in my life.
 
 Since you came into my world, everything has slowly changed… as if my heart has found its place.
 
@@ -216,6 +219,7 @@ You are more than just a special person to me you are the one who makes my heart
 With you, I don't just want moments , I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
 
 Nabghik fi galbi ya lhbila dyali
+
         </div>
     `;
     document.body.appendChild(final);
@@ -223,7 +227,7 @@ Nabghik fi galbi ya lhbila dyali
 
 /* ROSES ALÉATOIRES */
 function createRose() {
-    const flowers = ["🌷"];
+    const flowers = ["🌹","🌸","💐","🌷","🌺","🌻"];
     const rose = document.createElement("div");
     rose.classList.add("rose");
     rose.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
@@ -241,4 +245,3 @@ setInterval(createRose, 400);
 
 </body>
 </html>
-
