@@ -70,7 +70,56 @@ button {
     animation: kissMove 2s ease forwards;
 }
 
-/* ANIMATION OURSON ET BISOU */
+/* ROSES */
+.rose {
+    position: absolute;
+    font-size: 6vw;
+    animation: fall 6s linear infinite;
+}
+
+/* MESSAGE FINAL */
+.finalMessage {
+    position: relative;
+    max-width: 90%;
+    margin: 20px auto;
+    color: white;
+    font-size: 7vw;
+    text-align: center;
+}
+
+.letter {
+    max-height: 50vh;
+    overflow-y: auto;
+    background: white;
+    color: #ff4d6d;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    font-size: 4vw;
+}
+
+/* GALERIE PHOTOS */
+.gallery {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.gallery img {
+    width: 40%;
+    max-width: 150px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.1);
+}
+
+/* ANIMATIONS */
 @keyframes floatTeddy {
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-5vw); }
@@ -81,43 +130,12 @@ button {
     100% { opacity: 0; transform: translateY(-15vw); }
 }
 
-/* ROSES */
-.rose {
-    position: absolute;
-    font-size: 6vw;
-    animation: fall 6s linear infinite;
-}
-
 @keyframes fall {
     0% { transform: translateY(-10vh); }
     100% { transform: translateY(110vh); }
 }
 
-/* FINAL MESSAGE SCROLLABLE */
-.finalMessage {
-    position: relative; /* pas absolute pour permettre scroll */
-    top: auto;
-    left: auto;
-    transform: none;
-    max-width: 90%;
-    margin: 20px auto;
-    color: white;
-    font-size: 7vw;
-    text-align: center;
-}
-
-.letter {
-    max-height: 50vh;
-    overflow-y: auto; /* scroll vertical si texte trop grand */
-    background: white;
-    color: #ff4d6d;
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    font-size: 4vw;
-}
-
-/* Ajustement PC */
+/* VERSION PC */
 @media (min-width: 768px) {
     .title { font-size: 30px; }
     button { font-size: 18px; padding: 10px 25px; }
@@ -149,88 +167,45 @@ const noBtn = document.getElementById("noBtn");
 const music = document.getElementById("bgMusic");
 const title = document.querySelector(".title");
 
-/* YES grandit */
 let yesSize = 1;
 
-/* MUSIQUE commence à 16 secondes au premier clic */
 document.body.addEventListener("click", function() {
     music.currentTime = 16;
     music.play();
 }, { once: true });
 
-/* MOUVEMENT BOUTON NO */
 function moveNoButton() {
     const padding = 20;
-    let moves = 0;
+    let maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    let maxY = window.innerHeight - noBtn.offsetHeight - padding;
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 
-    function moveOnce() {
-        let maxX = window.innerWidth - noBtn.offsetWidth - padding;
-        let maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-        let x = Math.random() * maxX;
-        let y = Math.random() * maxY;
-
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-
-        yesSize += 0.1;
-        yesBtn.style.transform = "scale(" + yesSize + ")";
-
-        moves++;
-        if (moves < 5) {
-            setTimeout(moveOnce, 150);
-        }
-    }
-
-    moveOnce();
+    yesSize += 0.1;
+    yesBtn.style.transform = "scale(" + yesSize + ")";
 }
 
-/* PC */
 noBtn.addEventListener("mouseenter", moveNoButton);
-/* MOBILE */
 noBtn.addEventListener("touchstart", moveNoButton);
 
-/* CLICK YES */
 yesBtn.addEventListener("click", function() {
     yesBtn.remove();
     noBtn.remove();
     title.remove();
-//tsawr
-    <img src="images/photo1.jpg" alt="Photo 1">
-<img src="images/photo2.jpg" alt="Photo 2">
-<img src="images/photo3.jpg" alt="Photo 3">
-<style>
-img {
-  width: 300px;
-  margin: 20px;
-}
-</style>
-<div>
-  <img src="images/photo1.jpg">
-</div>
 
-<div>
-  <img src="images/photo2.jpg">
-    <img src="images/photo3.jpg">
-</div>
-
-<div>
-  <img src="images/photo4.jpg">
-</div>
-
-    // BISOU
     const kiss = document.createElement("div");
     kiss.classList.add("kiss");
     kiss.innerHTML = "💋";
     document.body.appendChild(kiss);
 
-    // MESSAGE FINAL
     const final = document.createElement("div");
     final.className = "finalMessage";
     final.innerHTML = `
         Nabghik fi galbi ❤️<br>Nouhaila 🥰
         <div class="letter">
-         Sometimes I sit quietly and think about how unbelievably lucky I am that life crossed our paths. Out of all the people in this world, it chose you to walk into my life  and since that day, nothing has felt the same.
+        Sometimes I sit quietly and think about how unbelievably lucky I am that life crossed our paths. Out of all the people in this world, it chose you to walk into my life  and since that day, nothing has felt the same.
 
 You didn’t just enter my world… you changed it. You brought a warmth I didn’t know I was missing, a peace I didn’t know I needed. It’s like my heart was searching for something without understanding what it was  and then it found you. And suddenly, everything made sense.
 
@@ -241,13 +216,18 @@ With you, I don’t just want temporary moments. I want a lifetime of memories. 
 And yes we’ve had difficult moments. We’ve had misunderstandings, silence, pain, and days where things felt heavy between us. But even in those hard times, my heart never chose to leave. Loving you isn’t about everything being perfect  it’s about choosing you even when things are complicated. It’s about holding on when it would be easier to let go. Every challenge we faced didn’t break what I feel  it showed me how real it is.
 
 Nabghik fi galbi ya lhbila dyali not just when things are easy, but especially when they’re hard. And no matter what we go through, my heart still finds its home in you.
+        </div>
 
+        <div class="gallery">
+            <img src="images/photo1.jpg" alt="photo1">
+            <img src="images/photo2.jpg" alt="photo2">
+            <img src="images/photo3.jpg" alt="photo3">
+            <img src="images/photo4.jpg" alt="photo4">
         </div>
     `;
     document.body.appendChild(final);
 });
 
-/* ROSES ALÉATOIRES */
 function createRose() {
     const flowers = ["🌹","🌸","💐","🌷","🌺","🌻"];
     const rose = document.createElement("div");
@@ -262,10 +242,7 @@ function createRose() {
 }
 
 setInterval(createRose, 400);
-
 </script>
 
 </body>
 </html>
-
-
