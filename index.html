@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Nouhaila ❤️</title>
+<title>For Nouhaile ❤️</title>
 
 <style>
 body {
     margin: 0;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
     font-family: Arial, sans-serif;
     overflow: hidden;
@@ -19,92 +16,69 @@ body {
     position: relative;
 }
 
+/* TITRE */
 .title {
     position: absolute;
     top: 20px;
-    width: 100%;
-    text-align: center;
-    font-size: 2em;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 6vw;
     color: white;
     z-index: 3;
 }
 
+/* BOUTONS */
 button {
-    padding: 12px 25px;
-    font-size: 20px;
+    padding: 3vw 6vw;
+    font-size: 5vw;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    margin: 10px;
+    position: absolute;
     transition: 0.2s;
 }
 
 #yesBtn {
     background-color: #ff4d6d;
     color: white;
-    position: relative;
-    z-index: 2;
-    margin-top: 150px; /* descendre sous le titre */
+    top: 55%;
+    left: 40%;
 }
 
 #noBtn {
     background-color: white;
     color: #ff4d6d;
+    top: 55%;
+    left: 60%;
+}
+
+/* MESSAGE FINAL */
+.finalMessage {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-}
-
-.rose {
-    position: absolute;
-    animation: fall 6s linear infinite;
-    font-size: 24px;
-}
-
-@keyframes fall {
-    0% { transform: translateY(-10vh); }
-    100% { transform: translateY(110vh); }
-}
-
-.teddy {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    font-size: 60px;
-    animation: floatTeddy 3s ease-in-out infinite;
-}
-
-@keyframes floatTeddy {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-.kiss {
-    position: absolute;
-    bottom: 80px;
-    right: 60px;
-    font-size: 30px;
-    animation: kissMove 2s ease forwards;
-}
-
-@keyframes kissMove {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-150px); }
+    color: white;
+    font-size: 7vw;
+    text-align: center;
 }
 
 .letter {
     background: white;
-    width: 80%;
-    max-width: 500px;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    margin: auto;
-    margin-top: 20px;
     color: #ff4d6d;
-    font-size: 18px;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    font-size: 4vw;
+}
+
+/* Ajustement PC */
+@media (min-width: 768px) {
+    .title { font-size: 30px; }
+    button { font-size: 18px; padding: 10px 25px; }
+    .finalMessage { font-size: 40px; }
+    .letter { font-size: 18px; }
 }
 </style>
 </head>
@@ -115,45 +89,41 @@ button {
     <source src="amour.mp3" type="audio/mpeg">
 </audio>
 
-<div class="title">
-    <h1 class="title">Nouhaila 💖<br>Will you be my Valentine forever?</h1>
-  
-</div>
-<div class="container">
+<h1 class="title">Nouhaile 💖<br>Will you be my Valentine forever?</h1>
 
-  <button id="yesBtn">Yes 💖</button>
-    <button id="noBtn">No 😢</button>
-</div>
-<div class="teddy" id="teddy">🧸</div>
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 😢</button>
 
 <script>
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const music = document.getElementById("bgMusic");
 
-let size = 1;
+let yesSize = 1;
 
-// Musique commence à 16 secondes après le premier clic
+/* MUSIQUE commence à 16 secondes au premier clic */
 document.body.addEventListener("click", function() {
     music.currentTime = 16;
     music.play();
 }, { once: true });
 
-// NO bouge 5 fois doucement à chaque survol
-noBtn.addEventListener("mouseenter", function() {
-    const padding = 50;
+/* Fonction mouvement bouton NO */
+function moveNoButton() {
+    const padding = 20;
     let moves = 0;
 
     function moveOnce() {
-        const x = Math.random() * (window.innerWidth - padding * 2) + padding;
-        const y = Math.random() * (window.innerHeight - padding * 2) + padding;
+        let maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        let maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-        noBtn.style.transition = "all 0.15s ease";
+        let x = Math.random() * maxX;
+        let y = Math.random() * maxY;
+
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        size += 0.1;
-        yesBtn.style.transform = "scale(" + size + ")";
+        yesSize += 0.1;
+        yesBtn.style.transform = "scale(" + yesSize + ")";
 
         moves++;
         if (moves < 5) {
@@ -162,65 +132,41 @@ noBtn.addEventListener("mouseenter", function() {
     }
 
     moveOnce();
-});
+}
 
-// YES clique
+/* PC */
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+/* MOBILE */
+noBtn.addEventListener("touchstart", moveNoButton);
+
+/* CLICK YES */
 yesBtn.addEventListener("click", function() {
-    const kiss = document.createElement("div");
-    kiss.classList.add("kiss");
-    kiss.innerHTML = "💋";
-    document.body.appendChild(kiss);
 
-    setTimeout(() => {
-        // Supprime les boutons YES et NO
-        yesBtn.remove();
-        noBtn.remove();
+    yesBtn.remove();
+    noBtn.remove();
 
-        // Crée le message final
-        const finalMessage = document.createElement("div");
-        finalMessage.style.position = "absolute";
-        finalMessage.style.top = "50%";
-        finalMessage.style.left = "50%";
-        finalMessage.style.transform = "translate(-50%, -50%)";
-        finalMessage.style.textAlign = "center";
-        finalMessage.innerHTML = `
-            <h1 style="color:white; font-size:3em;">
-                Nabghik fi galbi ❤️<br> lkbedbed 🥰
-            </h1>
-            <div class="letter">
+    const final = document.createElement("div");
+    final.className = "finalMessage";
+    final.innerHTML = `
+        Nabghik fi galbi ❤️<br>Nouhaile 🥰
+        <div class="letter">
 Sometimes I wonder how lucky I was to have you in my life.
 
 Since you came into my world, everything has slowly changed… as if my heart has found its place.
 
 When I think of you, I smile for no reason. When I talk to you, I forget everything else. And when I imagine you far away, I understand how much you truly mean to me.
 
-You are more than just a special person to me , you are the one who makes my heart beat a little faster.
+You are more than just a special person to me… you are the one who makes my heart beat a little faster.
 
-With you, I don't just want moments ,  I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
+With you, I don't just want moments… I want memories. I want laughter, late-night conversations, little things that grow big over time, a mother to my children.
 
-kanmot 3lik            </div>
-        `;
-        document.body.appendChild(finalMessage);
-    }, 2000);
+Nabghik fi galbi ya lhbila dyali
+</div>
+    `;
+
+    document.body.appendChild(final);
 });
-
-
-
-// Roses
-function createRose() {
-    const rose = document.createElement("div");
-    rose.classList.add("rose");
-    rose.innerHTML = "🌷	";
-    rose.style.left = Math.random() * 100 + "vw";
-    rose.style.fontSize = Math.random() * 20 + 20 + "px";
-    document.body.appendChild(rose);
-
-    setTimeout(() => {
-        rose.remove();
-    }, 6000);
-}
-
-setInterval(createRose, 400);
 </script>
 
 </body>
